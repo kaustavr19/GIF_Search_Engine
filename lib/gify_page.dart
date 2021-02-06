@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:velocity_x/velocity_x.dart';
@@ -10,20 +11,25 @@ class GifyPage extends StatefulWidget {
 }
 
 class _GifyPageState extends State<GifyPage> {
-  final TextEditingController controller = TextEditingController();
-  final String imgUrl =
+  final url =
       "https://api.giphy.com/v1/gifs/search?api_key=pe3ZWyViWslU9f87eJGnEdq3vg4gYkJ0&limit=25&offset=0&rating=G&lang=en&q=";
 
+  final TextEditingController controller = TextEditingController();
+  bool showLoading = false;
   var data;
-  bool showloading = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   getData(String searchText) async {
-    showloading = true;
+    showLoading = true;
     setState(() {});
-    final res = await http.get(imgUrl + searchText);
+    final res = await http.get(url + searchText);
     data = jsonDecode(res.body)["data"];
     setState(() {
-      showloading = false;
+      showLoading = false;
     });
   }
 
@@ -31,19 +37,16 @@ class _GifyPageState extends State<GifyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Vx.green800,
-        appBar: AppBar(title: Text('GIFY App'), backgroundColor: Vx.green500),
         body: Theme(
           data: ThemeData.dark(),
-          child: Column(children: [
-            "The Best GIF Engine".text.white.xl3.make().objectCenter(),
+          child: VStack([
+            "Gify App".text.white.xl4.make().objectCenter(),
             [
               Expanded(
                 child: TextField(
                   controller: controller,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Search here',
-                  ),
+                      border: OutlineInputBorder(), labelText: "Search here"),
                 ),
               ),
               30.widthBox,
@@ -51,27 +54,27 @@ class _GifyPageState extends State<GifyPage> {
                 onPressed: () {
                   getData(controller.text);
                 },
+                child: "Go".text.make(),
                 shape: Vx.roundedSm,
-                child: Text("Go!"),
-              ).h8(context),
+              ).h8(context)
             ]
                 .hStack(
                     axisSize: MainAxisSize.max,
                     crossAlignment: CrossAxisAlignment.center)
                 .p24(),
-            if (showloading)
+            if (showLoading)
               CircularProgressIndicator().centered()
             else
               VxConditional(
                 condition: data != null,
                 builder: (context) => GridView.builder(
+                  shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: context.isMobileTypeHandset ? 2 : 3,
-                  ),
+                      crossAxisCount: context.isMobile ? 2 : 3),
                   itemBuilder: (context, index) {
-                    final imgUrl = data[index]["images"]["fixed_height"]
-                            ["imgUrl"]
-                        .toString();
+                    final imgUrl =
+                        data[index]["images"]["fixed_height"]["url"].toString();
+
                     return ZStack(
                       [
                         BackdropFilter(
