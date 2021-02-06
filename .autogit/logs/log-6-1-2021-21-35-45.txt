@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Sat Feb 06 2021 21:35:45 GMT+0530 (India Standard Time)
+------------------------------------------------------
+
+Modified files:
+* lib/gify_page.dart
+
+
+Created files:
+* .autogit/logs/log-6-1-2021-21-4-59.txt
+
+
+Deleted files:
+
+
+Renamed files:

@@ -66,9 +66,11 @@ class _GifyPageState extends State<GifyPage> {
                 ),
                 shape: Vx.roundedSm,
               ).h8(context)
-            ].hStack(
-                axisSize: MainAxisSize.max,
-                crossAlignment: CrossAxisAlignment.center),
+            ]
+                .hStack(
+                    axisSize: MainAxisSize.max,
+                    crossAlignment: CrossAxisAlignment.center)
+                .p24(),
             if (showLoading)
               CircularProgressIndicator().centered()
             else
@@ -101,7 +103,7 @@ class _GifyPageState extends State<GifyPage> {
                       fit: StackFit.expand,
                     ).card.roundedSM.make().p4();
                   },
-                  //itemCount: data.length,
+                  itemCount: data.length,
                 ),
                 fallback: (context) =>
                     "Nothing found".text.gray500.xl3.makeCentered(),
