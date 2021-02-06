@@ -37,10 +37,16 @@ class _GifyPageState extends State<GifyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Vx.green800,
+        appBar: AppBar(
+          backgroundColor: Vx.green500,
+          title: Text(
+            "GIFY",
+          ),
+        ),
         body: Theme(
           data: ThemeData.dark(),
           child: VStack([
-            "Gify App".text.white.xl4.make().objectCenter(),
+            "Best GIF Engine".text.white.xl3.make().objectCenter(),
             [
               Expanded(
                 child: TextField(
@@ -51,17 +57,18 @@ class _GifyPageState extends State<GifyPage> {
               ),
               30.widthBox,
               RaisedButton(
+                color: Vx.green500,
                 onPressed: () {
                   getData(controller.text);
                 },
-                child: "Go".text.make(),
+                child: Icon(
+                  Icons.search,
+                ),
                 shape: Vx.roundedSm,
               ).h8(context)
-            ]
-                .hStack(
-                    axisSize: MainAxisSize.max,
-                    crossAlignment: CrossAxisAlignment.center)
-                .p24(),
+            ].hStack(
+                axisSize: MainAxisSize.max,
+                crossAlignment: CrossAxisAlignment.center),
             if (showLoading)
               CircularProgressIndicator().centered()
             else
@@ -89,12 +96,12 @@ class _GifyPageState extends State<GifyPage> {
                         Image.network(
                           imgUrl,
                           fit: BoxFit.contain,
-                        )
+                        ),
                       ],
                       fit: StackFit.expand,
                     ).card.roundedSM.make().p4();
                   },
-                  itemCount: data.length,
+                  //itemCount: data.length,
                 ),
                 fallback: (context) =>
                     "Nothing found".text.gray500.xl3.makeCentered(),
