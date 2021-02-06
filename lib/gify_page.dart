@@ -8,6 +8,9 @@ class GifyPage extends StatefulWidget {
 }
 
 class _GifyPageState extends State<GifyPage> {
+  final TextEditingController controller = TextEditingController();
+
+  var data;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,8 +21,29 @@ class _GifyPageState extends State<GifyPage> {
         child: Column(
           children: [
             "The Best GIF Engine".text.white.xl3.make().objectCenter(),
-            TextField(
-              decoration: InputDecoration(),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Search here',
+                    ),
+                  ),
+                ),
+                30.widthBox,
+                RaisedButton(
+                  onPressed: () {},
+                  shape: Vx.roundedSm,
+                  child: Text("Go!"),
+                ).h8(context),
+              ],
+            ).p8(),
+            VxConditional(
+              condition: data != null,
+              builder: (context) => Text('Data available'),
+              fallback: (context) => "Nothing found".text.make(),
             ),
           ],
         ).p16(),
